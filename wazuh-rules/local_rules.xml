@@ -1,0 +1,21 @@
+
+<group name="windows,custom_detection,">
+
+  <rule id="100100" level="5">
+    <field name="win.system.eventID">^4625$</field>
+    <description>Windows failed login detected</description>
+  </rule>
+
+  <rule id="100104" level="10">
+    <field name="win.system.eventID">^4732$</field>
+    <field name="win.eventdata.targetSid">^S-1-5-32-544$</field>
+    <description>User added to local Administrators group</description>
+  </rule>
+
+  <rule id="100110" level="12" frequency="5" timeframe="120">
+    <if_matched_sid>100100</if_matched_sid>
+    <same_srcip />
+    <description>Multiple failed Windows logins from same source IP</description>
+  </rule>
+
+</group>
